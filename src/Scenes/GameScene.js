@@ -40,6 +40,8 @@ export default class GameScene extends Phaser.Scene {
     // set velocity for coins
     this.setObjectsVelocity(this.coins);
 
+    // check collision with jet and bomb
+    this.physics.add.collider(this.jet, this.bombs, this.endGame, null, this);
 
     //set the random velocity of each bomb object
     this.setObjectsVelocity(this.bombs);
@@ -61,6 +63,9 @@ export default class GameScene extends Phaser.Scene {
     // add coinhit sound
     this.coinHit = this.sound.add('coinhit');
 
+    // Add end game sound
+    this.endSound = this.sound.add('endSound');
+
     // set the score text
     this.scoreText = this.add.text(15,15, 'Score : 0', {fontSize:32, fill: '#ff0000'});
 
@@ -68,6 +73,10 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update() {
+    if (this.gameOver) {
+      return;
+    }
+
     // move background
     this.sky.tilePositionY -= 0.8;
 
@@ -140,6 +149,14 @@ export default class GameScene extends Phaser.Scene {
     let xVel = Phaser.Math.Between(-100, 100);
     let yVel = Phaser.Math.Between(150, 200);
     object.setVelocity(xVel, yVel);
+  }
+
+  // fuunction to end the game
+  endGame(jet, bomb){
+    this.endSound.play();
+    this.physics.pause();
+    jet.setTint(0XFF000);
+    this.gameOver = true;
   }
 
   // check if the objects in a groub object requre

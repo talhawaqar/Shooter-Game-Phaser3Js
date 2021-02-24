@@ -14,6 +14,21 @@ export default class GameScene extends Phaser.Scene {
 
     // set cursors to control jet
     this.cursors = this.input.keyboard.createCursorKeys();
+
+    //add bombs group
+    this.bombs = this.physics.add.group({
+      key: 'bomb',
+      repeat: 3,
+      setXY: {
+        x: 20,
+        y: 50,
+        stepX: Phaser.Math.Between(10, 400-15),
+        stepY: Phaser.Math.Between(15, 100)
+      }
+    });
+
+    this.setObjectsVelocity(this.bombs);
+
   }
 
   update() {
@@ -36,5 +51,19 @@ export default class GameScene extends Phaser.Scene {
     else {
       this.jet.setVelocity(0);
     }
+  }
+  // give random velocity to the group object 
+  setObjectsVelocity(objects){
+    let game = this;
+    objects.children.iterate(function(objcet){
+      game.setObjectVelocity(objcet);
+    });
+  }
+
+  // give random velocity to singal object
+  setObjectVelocity(object) {
+    let xVel = Phaser.Math.Between(-100, 100);
+    let yVel = Phaser.Math.Between(150, 200);
+    object.setVelocity(xVel, yVel);
   }
 };

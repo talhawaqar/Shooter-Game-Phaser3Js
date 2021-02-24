@@ -3,6 +3,7 @@ import 'phaser';
 export default class GameScene extends Phaser.Scene {
   constructor () {
     super('Game');
+    this.score = 0;
   }
 
   create () {
@@ -27,7 +28,25 @@ export default class GameScene extends Phaser.Scene {
       }
     });
 
+    //set the random velocity of each bomb object
     this.setObjectsVelocity(this.bombs);
+
+    // shoot when click
+    this.input.on('pointerdown', this.shoot, this);
+
+    // animation plays when bomb blasts
+    this.anims.create({
+      key: 'explode',
+      frames: this.anims.generateFrameNumbers('explosion'),
+      frameRate: 20,
+      hideOnComplete: true
+    });
+
+    // add gunshot sound
+    this.gunshot = this.sound.add('gunshot');
+
+    // set the score text
+    this.scoreText = this.add.text(15,15, 'Score : 0', {fontSize:32, fill: '#ff0000'});
 
   }
 
@@ -54,6 +73,30 @@ export default class GameScene extends Phaser.Scene {
 
     this.checkRepositionForObjects(this.bombs);
   }
+
+  // fire the ammo
+  shoot(){
+    this.ammo = this.physics.add.image(this.jet.x, this.jet.y, 'ammo').setScale(0.2).setOrigin(0, 0.5);
+    this.ammo.setRotation(-Phaser.Math.PI2/4);
+    this.ammo.setVelocityY(-300);
+    this.physics.add.collider(this.ammo,this.bombs, this.destroyBomb, null, this);
+  }
+
+  // destroy bomb when ammo hits the bomb
+  destroyBomb(ammo, bomb) {
+    this.score = this.score+10;
+    this.scoreText.setText('Score : ' + this.score);
+    this.gunshot.play();
+    bomb.disableBody(true, true);
+    ammo.disableBody(true, true);
+    this.explosion = this.add.sprite(bomb.x, bomb.y, 'explosion').setScale(4);
+    this.explosion.play('explode');
+    let x = Phaser.Math.Between(15, 800-15);
+    let y = Phaser.Math.Between(0, 150);
+    bomb.enableBody(true, x, y, true, true);
+    this.setObjectVelocity(bomb);
+  }
+
   // give random velocity to the group object 
   setObjectsVelocity(objects){
     let game = this;

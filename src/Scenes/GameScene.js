@@ -28,6 +28,19 @@ export default class GameScene extends Phaser.Scene {
       }
     });
 
+    //add coins
+    this.coins = this.physics.add.group();
+
+    for (let i=0; i<10; i++) {
+      let x = Phaser.Math.Between(0, 800-15);
+      let y = Phaser.Math.Between(0, 300);
+      let newCoin = this.coins.create(x, y, 'coin');
+    }
+
+    // set velocity for coins
+    this.setObjectsVelocity(this.coins);
+
+
     //set the random velocity of each bomb object
     this.setObjectsVelocity(this.bombs);
 
@@ -45,9 +58,13 @@ export default class GameScene extends Phaser.Scene {
     // add gunshot sound
     this.gunshot = this.sound.add('gunshot');
 
+    // add coinhit sound
+    this.coinHit = this.sound.add('coinhit');
+
     // set the score text
     this.scoreText = this.add.text(15,15, 'Score : 0', {fontSize:32, fill: '#ff0000'});
 
+    this.physics.add.collider(this.jet, this.coins, this.collectCoins, null, this);
   }
 
   update() {
@@ -72,6 +89,19 @@ export default class GameScene extends Phaser.Scene {
     }
 
     this.checkRepositionForObjects(this.bombs);
+    this.checkRepositionForObjects(this.coins);
+  }
+
+  // collect coins
+  collectCoins(jet, coin) {
+    this.coinHit.play();
+    this.score = this.score+5;
+    this.scoreText.setText('Score : ' + this.score);
+    coin.disableBody(true, true);
+    let x = Phaser.Math.Between(15, 800-15);
+    let y = Phaser.Math.Between(0, 300);
+    coin.enableBody(true, x, y, true, true);
+    this.setObjectVelocity(coin);
   }
 
   // fire the ammo

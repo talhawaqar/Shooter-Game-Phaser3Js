@@ -51,6 +51,8 @@ export default class GameScene extends Phaser.Scene {
     else {
       this.jet.setVelocity(0);
     }
+
+    this.checkRepositionForObjects(this.bombs);
   }
   // give random velocity to the group object 
   setObjectsVelocity(objects){
@@ -65,5 +67,21 @@ export default class GameScene extends Phaser.Scene {
     let xVel = Phaser.Math.Between(-100, 100);
     let yVel = Phaser.Math.Between(150, 200);
     object.setVelocity(xVel, yVel);
+  }
+
+  // check if the objects in a groub object requre
+  checkRepositionForObjects(objects){
+    let game = this;
+    objects.children.iterate(function(object){
+      if (object.y > 600) {
+        game.resetPos(object);
+      }
+    });
+  }
+
+  // reset position of the object
+  resetPos(object) {
+    object.y = 0;
+    object.x = Phaser.Math.Between(15, 800-15);
   }
 };

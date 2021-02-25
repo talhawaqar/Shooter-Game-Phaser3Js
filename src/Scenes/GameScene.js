@@ -7,6 +7,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create () {
+    this.model = this.sys.game.globals.model;
     // create background
     this.sky = this.add.tileSprite(400, 300, 800, 600, 'sky');
     // add jet
@@ -74,7 +75,7 @@ export default class GameScene extends Phaser.Scene {
 
   update() {
     if (this.gameOver) {
-      return;
+      this.scene.start('End' , { totalScore: this.score });
     }
 
     // move background
@@ -103,7 +104,9 @@ export default class GameScene extends Phaser.Scene {
 
   // collect coins
   collectCoins(jet, coin) {
-    this.coinHit.play();
+    if (this.model.soundOn){
+      this.coinHit.play();
+    } 
     this.score = this.score+5;
     this.scoreText.setText('Score : ' + this.score);
     coin.disableBody(true, true);
@@ -125,7 +128,9 @@ export default class GameScene extends Phaser.Scene {
   destroyBomb(ammo, bomb) {
     this.score = this.score+10;
     this.scoreText.setText('Score : ' + this.score);
-    this.gunshot.play();
+    if (this.model.soundOn){
+      this.gunshot.play();
+    }
     bomb.disableBody(true, true);
     ammo.disableBody(true, true);
     this.explosion = this.add.sprite(bomb.x, bomb.y, 'explosion').setScale(4);
@@ -153,7 +158,9 @@ export default class GameScene extends Phaser.Scene {
 
   // fuunction to end the game
   endGame(jet, bomb){
-    this.endSound.play();
+    if (this.model.soundOn){
+      this.endSound.play();
+    }
     this.physics.pause();
     jet.setTint(0XFF000);
     this.gameOver = true;

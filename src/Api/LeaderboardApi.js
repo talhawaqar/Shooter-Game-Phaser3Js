@@ -1,7 +1,10 @@
-const LeaderboardApi = {
-  URL: 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/x0F54MZKHqJe2ginwdHQ/scores/',
-  submitScore: (username, score) => {
-    fetch(LeaderboardContent.URL,
+export default class LeaderboardApi {
+  constructor(){
+    this.URL = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/x0F54MZKHqJe2ginwdHQ/scores/';  
+  }
+
+  submitScore(username, score) {
+    fetch(this.URL,
       {
         method: 'POST',
         mode: 'cors',
@@ -12,17 +15,17 @@ const LeaderboardApi = {
           user: username,
           score: score.toString(),
         }),
-      });
-  },
-  getScores: async () => {
+      }
+    );
+  }
+
+  async getScores(){
     try {
-      const response = await fetch(LeaderboardContent.URL, { mode: 'cors' });
+      const response = await fetch(this.URL, { mode: 'cors' });
       const result = response.json();
       return result;
     } catch (err) {
       return err;
     }
-  },
-};
-
-module.exports = LeaderboardApi;
+  }
+}

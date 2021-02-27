@@ -3,7 +3,12 @@ import 'phaser';
 export default class GameScene extends Phaser.Scene {
   constructor () {
     super('Game');
+    this.gameOver = false;
     this.score = 0;
+  }
+
+  init () {
+    this.gameOver = false;
   }
 
   create () {

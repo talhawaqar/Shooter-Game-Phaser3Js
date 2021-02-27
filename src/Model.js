@@ -1,5 +1,6 @@
 export default class Model {
   constructor() {
+    this._username = 'Guest';
     this._soundOn = true;
     this._musicOn = true;
     this._bgMusicPlaying = false;
@@ -27,5 +28,15 @@ export default class Model {
 
   get bgMusicPlaying() {
     return this._bgMusicPlaying;
+  }
+
+  set userName(value) {
+    if (value !=''){
+      this._username = value;
+    }
+  }
+
+  get userName(){
+    return this._username;
   }
 }

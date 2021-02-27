@@ -88,6 +88,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.audio('bgMusic', ['assets/audio/TownTheme.mp3']);
     this.load.image('sky', 'assets/images/sky.png');
     this.load.image('jet', 'assets/images/jet.png');
+    this.load.image('leaderboard-img', 'assets/images/leaderboard.png');
     this.load.image('bomb', 'assets/images/bomb.png');
     this.load.image('ammo', 'assets/images/ammo.png');
     this.load.image('coin', 'assets/images/coin.png');
@@ -101,10 +102,10 @@ export default class PreloaderScene extends Phaser.Scene {
   }
 
   ready () {
-    this.scene.start('Title');
+    this.scene.start('PlayerInfo');
     this.readyCount++;
     if (this.readyCount === 2) {
-      this.scene.start('Title');
+      this.scene.start('PlayerInfo');
     }
   }
 };

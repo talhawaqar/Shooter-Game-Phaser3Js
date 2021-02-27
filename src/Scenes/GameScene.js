@@ -7,7 +7,10 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create () {
+    this.userNameField = document.getElementById('txtName');
+    this.userNameField.style.display = "none";
     this.model = this.sys.game.globals.model;
+
     // create background
     this.sky = this.add.tileSprite(400, 300, 800, 600, 'sky');
     // add jet

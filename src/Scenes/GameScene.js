@@ -12,8 +12,6 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create () {
-    this.userNameField = document.getElementById('txtName');
-    this.userNameField.style.display = "none";
     this.model = this.sys.game.globals.model;
 
     // create background

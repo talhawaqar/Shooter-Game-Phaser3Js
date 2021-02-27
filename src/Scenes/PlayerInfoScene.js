@@ -17,6 +17,6 @@ export default class PlayerInfoScene extends Phaser.Scene {
 
   startGame(){
     this.sys.game.globals.model.userName = this.userNameField.value;
-    this.scene.start('Game');
+    this.scene.start('Title');
   }
 };

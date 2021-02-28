@@ -1,10 +1,13 @@
+import 'regenerator-runtime/runtime';
+const fetch = require("node-fetch");
+
 export default class LeaderboardApi {
   constructor(){
     this.URL = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/x0F54MZKHqJe2ginwdHQ/scores/';  
   }
 
-  submitScore(username, score) {
-    fetch(this.URL,
+  async submitScore(username, score) {
+    const response = await fetch(this.URL,
       {
         method: 'POST',
         mode: 'cors',
@@ -17,6 +20,8 @@ export default class LeaderboardApi {
         }),
       }
     );
+    const result = response.json();
+    return result;
   }
 
   async getScores(){

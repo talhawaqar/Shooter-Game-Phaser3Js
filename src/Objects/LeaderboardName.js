@@ -1,4 +1,4 @@
-import 'phaser';
+import Phaser from 'phaser';
 
 export default class LeaderboardName extends Phaser.GameObjects.Container {
   constructor(scene, x, y, text) {
@@ -8,7 +8,7 @@ export default class LeaderboardName extends Phaser.GameObjects.Container {
     this.y = y;
 
     this.textArea = this.scene.add.sprite(0, 0, 'white-bg');
-    this.text = this.scene.add.text(0, 0, text, { fontSize: '22px',  fill: '#0f0' });
+    this.text = this.scene.add.text(0, 0, text, { fontSize: '22px', fill: '#0f0' });
     Phaser.Display.Align.In.Center(this.text, this.textArea);
 
     this.add(this.textArea);

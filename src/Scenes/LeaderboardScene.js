@@ -22,7 +22,7 @@ export default class LeaderboardScene extends Phaser.Scene {
     let y = 200;
     for (let i = 0; i < 8; i += 1) {
       const l = new LeaderboardName(context, 400, y, `${i + 1}  ${data[i].user}   ${data[i].score}`);
-      l.setInteraactive();
+      l.setInteractive();
       y += 40;
     }
   }

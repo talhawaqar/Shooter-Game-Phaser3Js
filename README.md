@@ -6,10 +6,6 @@
 
 ![screenshot](./assets/Screenshot.png)
 
-## Game Design
-
-The concept of game design is simple, as shown on screens. A jet in space shoots the bombs and collects coins to get scores. If the Jet collides with a bomb, the game is over. All assets are provided by code4cause.
-
 ## Built With
 
 - HTML
@@ -51,6 +47,44 @@ The concept of game design is simple, as shown on screens. A jet in space shoots
 - Use the mouse for the non-game and dialogues screens.
 
 - Have Fun Playing!
+
+## Game Development
+
+- ### Ideation
+
+  During the planning phase of the game, I was faced with the conundrum of recognizing that there are plenty of shooter games out there most of which share the same ideas. Therefore I decided to proceed with the idea of making a space shooter game that contains a jet in space shoot enemies and collect coins to make the score
+
+- ## Designing
+
+  Designing is a very important part of game development. I found the space image on the Phaser website. I get this image and edited according to my need and rotate it on y-axes infinitely to give the effect you are actually in space. I find jet image ammo image and blast sprite from code4cause it looks perfect for me so I used it. The buttons and the loading design are the same provided in the getting started template by Zenva.
+
+- ## Development
+
+  Working with Phaser 3 is awesome. At first, it looks weird but by watching tutorials and follow the getting started guide provided by the phaser I found it very interesting and after some time, I think it is time to make my own game.
+
+  I listed the main features I wanted in my game and designed them following the Phaser 3 documentation.
+
+  Breifly, below are the steps I followed in development:
+
+  - Install Phaser using Node Package Manager(npm) and set up the game configuration.
+
+  - Design the Game scene by implementing the following:
+
+    1. Use template provided by Zenava.
+    1. Use rotated tiled background of space image.
+    1. Find jet and ammo image and allow jet to fire ammo.
+    1. Find bomb image and sprite shows when bomb explode.
+    1. Add scouring system.
+    1. Use microverse provided api to keep record of the scores.
+    1. Make object to show leaderboard score.
+
+  - Design other supplimentary scenes.
+  - Add sound to the game.
+  - Add and implement the Leader Board functionality using the scoring api.
+  - Finalise.
+
+- ## Deployment
+  The game is deployed on netlify.
 
 ## Getting Started
 

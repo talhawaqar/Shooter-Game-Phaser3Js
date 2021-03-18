@@ -17,8 +17,7 @@ const submitScore = async (username, score) => {
         score: score.toString(),
       }),
     });
-  const result = response.json();
-  return result;
+  return response.json();
 };
 
 const getScores = async () => {

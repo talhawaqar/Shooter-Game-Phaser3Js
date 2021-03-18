@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import Phaser from 'phaser';
 
 export default class GameScene extends Phaser.Scene {
@@ -46,13 +45,13 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // set velocity for coins
-    this.setObjectsVelocity(this.coins);
+    GameScene.setObjectsVelocity(this.coins);
 
     // check collision with jet and bomb
     this.physics.add.collider(this.jet, this.bombs, this.endGame, null, this);
 
     // set the random velocity of each bomb object
-    this.setObjectsVelocity(this.bombs);
+    GameScene.setObjectsVelocity(this.bombs);
 
     // shoot when click
     this.input.on('pointerdown', this.shoot, this);
@@ -101,8 +100,8 @@ export default class GameScene extends Phaser.Scene {
       this.jet.setVelocity(0);
     }
 
-    this.checkRepositionForObjects(this.bombs);
-    this.checkRepositionForObjects(this.coins);
+    GameScene.checkRepositionForObjects(this.bombs);
+    GameScene.checkRepositionForObjects(this.coins);
   }
 
   // collect coins
@@ -116,7 +115,7 @@ export default class GameScene extends Phaser.Scene {
     const x = Phaser.Math.Between(15, 800 - 15);
     const y = Phaser.Math.Between(0, 300);
     coin.enableBody(true, x, y, true, true);
-    this.setObjectVelocity(coin);
+    GameScene.setObjectVelocity(coin);
   }
 
   // fire the ammo
@@ -141,19 +140,18 @@ export default class GameScene extends Phaser.Scene {
     const x = Phaser.Math.Between(15, 800 - 15);
     const y = Phaser.Math.Between(0, 150);
     bomb.enableBody(true, x, y, true, true);
-    this.setObjectVelocity(bomb);
+    GameScene.setObjectVelocity(bomb);
   }
 
   // give random velocity to the group object
-  setObjectsVelocity(objects) {
-    const game = this;
+  static setObjectsVelocity(objects) {
     objects.children.iterate((objcet) => {
-      game.setObjectVelocity(objcet);
+      GameScene.setObjectVelocity(objcet);
     });
   }
 
   // give random velocity to singal object
-  setObjectVelocity(object) {
+  static setObjectVelocity(object) {
     const xVel = Phaser.Math.Between(-100, 100);
     const yVel = Phaser.Math.Between(150, 200);
     object.setVelocity(xVel, yVel);
@@ -171,19 +169,17 @@ export default class GameScene extends Phaser.Scene {
   }
 
   // check if the objects in a groub object requre
-  checkRepositionForObjects(objects) {
-    const game = this;
+  static checkRepositionForObjects(objects) {
     objects.children.iterate((object) => {
       if (object.y > 600) {
-        game.resetPos(object);
+        GameScene.resetPos(object);
       }
     });
   }
 
   // reset position of the object
-  resetPos(object) {
+  static resetPos(object) {
     object.y = 0;
     object.x = Phaser.Math.Between(15, 800 - 15);
   }
 }
-/* eslint-enable class-methods-use-this */
